@@ -13,6 +13,7 @@ import com.example.kisileruygulamasi.databinding.CardTasarimBinding
 import com.example.kisileruygulamasi.databinding.FragmentAnasayfaBinding
 import com.example.kisileruygulamasi.ui.fragment.AnasayfaFragmentDirections
 import com.example.kisileruygulamasi.ui.viewmodel.AnasayfaViewModel
+import com.example.kisileruygulamasi.util.gecisYap
 import com.google.android.material.snackbar.Snackbar
 
 // it is an adapter class that is used to display the data of the people in the application.
@@ -43,8 +44,12 @@ class KisilerAdapter(var mContext : Context , var kisilerListesi: List<Kisiler> 
         t.carViewSatir.setOnClickListener(){
             // Anasayfa'dan KisiDetayFragment'e gecis yapilacak
             val gecis = AnasayfaFragmentDirections.kisiDetayGecis(kisi)
-            Navigation.findNavController(it).navigate(gecis) // Gecis yapilacak
+            Navigation.gecisYap(it,gecis)
+            //val gecis = AnasayfaFragmentDirections.kisiDetayGecis(kisi)
+            //Navigation.findNavController(it).navigate(gecis)
         }
+
+        
 
         t.imageViewSil.setOnClickListener(){
             Snackbar.make(it, "${kisi.kisi_ad} silinsin mi?", Snackbar.LENGTH_LONG)

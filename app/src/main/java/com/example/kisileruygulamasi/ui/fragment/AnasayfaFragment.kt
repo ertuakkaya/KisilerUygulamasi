@@ -18,6 +18,7 @@ import com.example.kisileruygulamasi.data.entitiy.Kisiler
 import com.example.kisileruygulamasi.databinding.FragmentAnasayfaBinding
 import com.example.kisileruygulamasi.ui.adapter.KisilerAdapter
 import com.example.kisileruygulamasi.ui.viewmodel.AnasayfaViewModel
+import com.example.kisileruygulamasi.util.gecisYap
 
 
 class AnasayfaFragment : Fragment() {
@@ -92,7 +93,7 @@ class AnasayfaFragment : Fragment() {
 
     // it icin bir view nesnesi alir ve bu nesne uzerinden Navigation islemi yapar
     fun fabTikla(it : View){
-        Navigation.findNavController(it).navigate(R.id.kisiKayitGecis)
+        Navigation.gecisYap(it, R.id.kisiKayitGecis)
     }
 
     fun Ara(aramaKelimesi : String){
