@@ -5,10 +5,11 @@ import com.example.kisileruygulamasi.data.repo.KisilerRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class KisiKayitViewModel : ViewModel() {
+class KisiKayitViewModel @Inject constructor(var kisilerRepo : KisilerRepository) : ViewModel() {
 
-    var kisilerRepo = KisilerRepository()
+
 
 
     // Repository sınıfındaki Kaydet fonksiyonunu çağırıyoruz.

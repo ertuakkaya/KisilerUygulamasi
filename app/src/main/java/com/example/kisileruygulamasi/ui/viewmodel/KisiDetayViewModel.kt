@@ -6,10 +6,11 @@ import com.example.kisileruygulamasi.data.repo.KisilerRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class KisiDetayViewModel : ViewModel() {
+class KisiDetayViewModel @Inject constructor(var kisilerRepo : KisilerRepository) : ViewModel() {
 
-    var kisilerRepo = KisilerRepository()
+
 
     // Repository sınıfındaki Guncelle fonksiyonunu çağırıyoruz.
     fun Guncelle(kisi_id : Int ,kisi_ad: String, kisi_tel: String) {

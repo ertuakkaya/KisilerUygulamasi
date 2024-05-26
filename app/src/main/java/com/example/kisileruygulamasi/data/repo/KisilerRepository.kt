@@ -4,9 +4,9 @@ import android.util.Log
 import com.example.kisileruygulamasi.data.datasource.KisilerDataSource
 import com.example.kisileruygulamasi.data.entitiy.Kisiler
 
-class KisilerRepository {
+class KisilerRepository (var kisilerDataSource : KisilerDataSource) {
 
-    var kisilerDataSource = KisilerDataSource()
+    //var kisilerDataSource = KisilerDataSource()
 
 
     // Data Source sınıfındaki Kaydet fonksiyonunu çağırıyoruz.

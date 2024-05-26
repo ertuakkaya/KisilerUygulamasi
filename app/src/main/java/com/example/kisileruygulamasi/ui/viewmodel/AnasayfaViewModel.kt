@@ -5,19 +5,23 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.kisileruygulamasi.data.entitiy.Kisiler
 import com.example.kisileruygulamasi.data.repo.KisilerRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AnasayfaViewModel : ViewModel() {
+@HiltViewModel
+class AnasayfaViewModel @Inject constructor(var kisilerRepo : KisilerRepository) : ViewModel() {
 
-    var kisilerRepo = KisilerRepository()
+    //var kisilerRepo = KisilerRepository()
 
+    // Tasarimdan data almak icin MutableLiveData kullanilir.
+    var kisilerListesi = MutableLiveData<List<Kisiler>>()
     init {
         kisileriYukle()
     }
-    // Tasarimdan data almak icin MutableLiveData kullanilir.
-    var kisilerListesi = MutableLiveData<List<Kisiler>>()
+
 
     // Repository sınıfındaki Sil fonksiyonunu çağırıyoruz.
     fun Sil(kisi_id : Int){
