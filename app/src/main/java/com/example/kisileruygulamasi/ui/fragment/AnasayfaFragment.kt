@@ -6,100 +6,62 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import androidx.appcompat.widget.SearchView
+import android.widget.SearchView.OnQueryTextListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.kisileruygulamasi.R
-import com.example.kisileruygulamasi.data.entitiy.Kisiler
+import com.example.kisileruygulamasi.data.entity.Kisiler
 import com.example.kisileruygulamasi.databinding.FragmentAnasayfaBinding
 import com.example.kisileruygulamasi.ui.adapter.KisilerAdapter
 import com.example.kisileruygulamasi.ui.viewmodel.AnasayfaViewModel
+import com.example.kisileruygulamasi.ui.viewmodel.KisiDetayViewModel
 import com.example.kisileruygulamasi.util.gecisYap
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AnasayfaFragment : Fragment() {
-
-
     private lateinit var binding: FragmentAnasayfaBinding
-
-    // viewModel setup
     private lateinit var viewModel: AnasayfaViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // viewModel tanımlaması
-        viewModel = viewModels<AnasayfaViewModel>().value
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
-        // View Binding
-        //binding = FragmentAnasayfaBinding.inflate(inflater, container, false)
-
-        //binding.rv.layoutManager = LinearLayoutManager(requireContext())
-        //binding.rv.layoutManager = StaggeredGridLayoutManager(1, LinearLayout.VERTICAL)
-
-        // Data Binding
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_anasayfa, container, false)
-
-        // XML dosyasinda tanimlanan degiskenlere erismek icin
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_anasayfa, container, false)
         binding.anasayfaFragment = this
-
-
-        // Data Binding ile toolbar basligi degistirme
-        binding.anasayfaToolbarBaslik = "KİSİLER"
+        binding.anasayfaToolbarBaslik = "Kişiler"
 
         viewModel.kisilerListesi.observe(viewLifecycleOwner){
-
-            val kisilerAdapter = KisilerAdapter(requireContext(),it, viewModel) // Adapter bilgileri duzenler
-            binding.kisilerAdapter = kisilerAdapter // Recyclerview goruntuler
+            val kisilerAdapter = KisilerAdapter(requireContext(),it,viewModel)
+            binding.kisilerAdapter = kisilerAdapter
         }
 
-        /*
-        binding.fab.setOnClickListener {
-
-            Navigation.findNavController(it).navigate(R.id.kisiKayitGecis)
-
-        }
-        */
-
-        binding.searchView.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
+        binding.searchView.setOnQueryTextListener(object : OnQueryTextListener{
             override fun onQueryTextChange(newText: String): Boolean {
-                viewModel.Ara(newText)
+                viewModel.ara(newText)
                 return true
             }
 
             override fun onQueryTextSubmit(query: String): Boolean {
-                viewModel.Ara(query)
+                viewModel.ara(query)
                 return true
             }
         })
 
-
         return binding.root
     }
 
-    // Anasayfa acildiginda calisir
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val tempViewModel: AnasayfaViewModel by viewModels()
+        viewModel = tempViewModel
+    }
+
+    fun fabTikla(it:View){
+        Navigation.gecisYap(it,R.id.kisiKayitGecis)
+    }
+
     override fun onResume() {
         super.onResume()
-        viewModel.kisileriYukle() // Ana sayfa acildiginda kisileri yukle
+        viewModel.kisileriYukle()
     }
-
-
-    // it icin bir view nesnesi alir ve bu nesne uzerinden Navigation islemi yapar
-    fun fabTikla(it : View){
-        Navigation.gecisYap(it, R.id.kisiKayitGecis)
-    }
-
-    fun Ara(aramaKelimesi : String){
-        viewModel.Ara(aramaKelimesi)
-    }
-
-
 }

@@ -1,9 +1,8 @@
 package com.example.kisileruygulamasi.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.kisileruygulamasi.data.entitiy.Kisiler
+import com.example.kisileruygulamasi.data.entity.Kisiler
 import com.example.kisileruygulamasi.data.repo.KisilerRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -12,36 +11,29 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AnasayfaViewModel @Inject constructor(var kisilerRepo : KisilerRepository) : ViewModel() {
-
-    //var kisilerRepo = KisilerRepository()
-
-    // Tasarimdan data almak icin MutableLiveData kullanilir.
+class AnasayfaViewModel @Inject constructor(var krepo:KisilerRepository) : ViewModel() {
     var kisilerListesi = MutableLiveData<List<Kisiler>>()
+
     init {
         kisileriYukle()
     }
 
-
-    // Repository sınıfındaki Sil fonksiyonunu çağırıyoruz.
-    fun Sil(kisi_id : Int){
+    fun sil(kisi_id:Int){
         CoroutineScope(Dispatchers.Main).launch {
-            kisilerRepo.Sil(kisi_id)
-            kisileriYukle() // Silme işleminden sonra tekrar listeyi yüklüyoruz.
+            krepo.sil(kisi_id)
+            kisileriYukle()
         }
     }
 
-    fun kisileriYukle(){
+    fun kisileriYukle() {
         CoroutineScope(Dispatchers.Main).launch {
-            // VİewModel'den veri göndermek için MutableLiveData'nın .value özelliğini kullanıyoruz.
-            kisilerListesi.value = kisilerRepo.kisileriYukle() // gelen veriyi kisilerListesi'ne atıyoruz.
-        }
-    }
-    fun Ara(aramaKelimesi : String){
-        CoroutineScope(Dispatchers.Main).launch {
-            kisilerListesi.value = kisilerRepo.Ara(aramaKelimesi)
+            kisilerListesi.value = krepo.kisileriYukle()
         }
     }
 
-
+    fun ara(aramaKelimesi:String){
+        CoroutineScope(Dispatchers.Main).launch {
+            kisilerListesi.value = krepo.ara(aramaKelimesi)
+        }
+    }
 }

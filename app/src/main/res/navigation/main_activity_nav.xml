@@ -11,11 +11,20 @@
         android:label="fragment_anasayfa"
         tools:layout="@layout/fragment_anasayfa" >
         <action
-            android:id="@+id/kisiDetayGecis"
-            app:destination="@id/kisiDetayFragment" />
-        <action
             android:id="@+id/kisiKayitGecis"
             app:destination="@id/kisiKayitFragment" />
+        <action
+            android:id="@+id/kisiDetayGecis"
+            app:destination="@id/kisiDetayFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/kisiKayitFragment"
+        android:name="com.example.kisileruygulamasi.ui.fragment.KisiKayitFragment"
+        android:label="fragment_kisi_kayit"
+        tools:layout="@layout/fragment_kisi_kayit" >
+        <action
+            android:id="@+id/kisiKayitAnasayfaGecis"
+            app:destination="@id/anasayfaFragment" />
     </fragment>
     <fragment
         android:id="@+id/kisiDetayFragment"
@@ -24,11 +33,9 @@
         tools:layout="@layout/fragment_kisi_detay" >
         <argument
             android:name="kisi"
-            app:argType="com.example.kisileruygulamasi.data.entitiy.Kisiler" />
+            app:argType="com.example.kisileruygulamasi.data.entity.Kisiler" />
+        <action
+            android:id="@+id/anasayfaGecis"
+            app:destination="@id/anasayfaFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/kisiKayitFragment"
-        android:name="com.example.kisileruygulamasi.ui.fragment.KisiKayitFragment"
-        android:label="fragment_kisi_kayit"
-        tools:layout="@layout/fragment_kisi_kayit" />
 </navigation>

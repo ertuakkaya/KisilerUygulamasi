@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kisileruygulamasi.R
-import com.example.kisileruygulamasi.data.entitiy.Kisiler
+import com.example.kisileruygulamasi.data.entity.Kisiler
 import com.example.kisileruygulamasi.databinding.CardTasarimBinding
 import com.example.kisileruygulamasi.databinding.FragmentAnasayfaBinding
 import com.example.kisileruygulamasi.ui.fragment.AnasayfaFragmentDirections
@@ -16,62 +16,37 @@ import com.example.kisileruygulamasi.ui.viewmodel.AnasayfaViewModel
 import com.example.kisileruygulamasi.util.gecisYap
 import com.google.android.material.snackbar.Snackbar
 
-// it is an adapter class that is used to display the data of the people in the application.
-// card's data is displayed in the recyclerview.
-
-class KisilerAdapter(var mContext : Context , var kisilerListesi: List<Kisiler> , var viewModel : AnasayfaViewModel)
+class KisilerAdapter(var mContext:Context,var kisilerListesi:List<Kisiler>,var viewModel:AnasayfaViewModel)
     : RecyclerView.Adapter<KisilerAdapter.CardTasarimTutucu>() {
 
+    inner class CardTasarimTutucu(var tasarim:CardTasarimBinding) : RecyclerView.ViewHolder(tasarim.root)
 
-    inner class CardTasarimTutucu(var tasarim : CardTasarimBinding) : RecyclerView.ViewHolder(tasarim.root)
-
-
-    //  CardTasarimBinding baglama islemi
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KisilerAdapter.CardTasarimTutucu {
-        val binding : CardTasarimBinding = DataBindingUtil.inflate(LayoutInflater.from(mContext),R.layout.card_tasarim ,parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardTasarimTutucu {
+        val binding:CardTasarimBinding = DataBindingUtil.inflate(LayoutInflater.from(mContext),R.layout.card_tasarim ,parent, false)
         return CardTasarimTutucu(binding)
     }
 
-
-    // asil islerin yapildigi yer !!!!
-    override fun onBindViewHolder(holder: KisilerAdapter.CardTasarimTutucu, position: Int ) {
+    override fun onBindViewHolder(holder: CardTasarimTutucu, position: Int) {
         val kisi = kisilerListesi.get(position)
         val t = holder.tasarim
 
         t.kisiNesnesi = kisi
 
-        // bir card'a tiklandiginda calisacak fonksiyon
-        t.carViewSatir.setOnClickListener(){
-            // Anasayfa'dan KisiDetayFragment'e gecis yapilacak
-            val gecis = AnasayfaFragmentDirections.kisiDetayGecis(kisi)
+        t.cardViewSatir.setOnClickListener {
+            val gecis = AnasayfaFragmentDirections.kisiDetayGecis(kisi = kisi)
             Navigation.gecisYap(it,gecis)
-            //val gecis = AnasayfaFragmentDirections.kisiDetayGecis(kisi)
-            //Navigation.findNavController(it).navigate(gecis)
         }
 
-        
-
-        t.imageViewSil.setOnClickListener(){
-            Snackbar.make(it, "${kisi.kisi_ad} silinsin mi?", Snackbar.LENGTH_LONG)
-                .setAction("Evet"){
-                    viewModel.Sil(kisi.kisi_id) // ViewModel'den Sil fonksiyonunu cagiriyoruz
-                }.show()
+        t.imageViewSil.setOnClickListener {
+            Snackbar.make(it,"${kisi.kisi_ad} silinsin mi?",Snackbar.LENGTH_SHORT)
+                .setAction("EVET"){
+                    viewModel.sil(kisi.kisi_id)
+                }
+                .show()
         }
     }
 
-
-    // kac adet veri gosterilecek
     override fun getItemCount(): Int {
-        return kisilerListesi.size // Listenin size'i kadar veri gosterilecek
-     }
-
-
-
+        return kisilerListesi.size
+    }
 }
-
-
-
-
-
-
-
