@@ -33,13 +33,24 @@ class AnasayfaViewModel @Inject constructor(var kisilerRepo : KisilerRepository)
 
     fun kisileriYukle(){
         CoroutineScope(Dispatchers.Main).launch {
-            // VİewModel'den veri göndermek için MutableLiveData'nın .value özelliğini kullanıyoruz.
-            kisilerListesi.value = kisilerRepo.kisileriYukle() // gelen veriyi kisilerListesi'ne atıyoruz.
+            try {
+                // VİewModel'den veri göndermek için MutableLiveData'nın .value özelliğini kullanıyoruz.
+                kisilerListesi.value = kisilerRepo.kisileriYukle() // gelen veriyi kisilerListesi'ne atıyoruz.
+            }
+            catch (e : Exception){
+                
+            }
         }
     }
     fun Ara(aramaKelimesi : String){
         CoroutineScope(Dispatchers.Main).launch {
-            kisilerListesi.value = kisilerRepo.Ara(aramaKelimesi)
+           try {
+               kisilerListesi.value = kisilerRepo.Ara(aramaKelimesi)
+           }catch(e : Exception){
+
+           }
+
+
         }
     }
 
