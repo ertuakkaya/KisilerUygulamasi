@@ -24,24 +24,24 @@ class KisilerDataSource (var kisilerDao : KisilerDao){
     }
 
 
-    suspend fun Kaydet(kisi_Ad: String, kisi_Tel: String) {
-        Log.e("Kişi Adı & Kisi Tel : ", "$kisi_Ad |  $kisi_Tel")
+    // KisilerDao'daki kaydet fonksiyonunu cagiriyoruz.
+    suspend fun Kaydet(kisi_ad: String, kisi_tel: String) {
+        kisilerDao.kaydet(kisi_ad, kisi_tel)
     }
 
     suspend fun Guncelle(kisi_id : Int ,kisi_ad: String, kisi_tel: String) {
-        Log.e("Kisi Guncelle : ", " $kisi_id | $kisi_ad |  $kisi_tel")
+       kisilerDao.guncelle(kisi_id, kisi_ad, kisi_tel)
     }
 
     suspend fun Sil(kisi_id : Int){
-        Log.e("Kisi Silindi", kisi_id.toString())
+        kisilerDao.sil(kisi_id)
     }
 
     suspend fun Ara(aramaKelimesi : String): List<Kisiler> =
 
         withContext(Dispatchers.IO){
-            val kisilerListesi = ArrayList<Kisiler>()
-            kisilerListesi.add(Kisiler(1,"Rana","5555555555"))
-            return@withContext kisilerListesi
+
+            return@withContext kisilerDao.ara(aramaKelimesi).kisiler
         }
 
 

@@ -38,7 +38,7 @@ class AnasayfaViewModel @Inject constructor(var kisilerRepo : KisilerRepository)
                 kisilerListesi.value = kisilerRepo.kisileriYukle() // gelen veriyi kisilerListesi'ne atıyoruz.
             }
             catch (e : Exception){
-                
+
             }
         }
     }

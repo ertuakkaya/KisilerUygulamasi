@@ -19,6 +19,8 @@ class AppModule {
         return KisilerRepository(kisilerDataSource)
     }
 
+
+
     @Provides
     @Singleton
     fun provideKisilerDataSource(kisilerDao : KisilerDao) : KisilerDataSource{
@@ -30,4 +32,6 @@ class AppModule {
     fun provideKisilerDao() : KisilerDao{
         return ApiUtils.getKisilerDao()
     }
+
+
 }
