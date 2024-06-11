@@ -43,10 +43,10 @@ class KisilerAdapter(var mContext : Context , var kisilerListesi: List<Kisiler> 
         // bir card'a tiklandiginda calisacak fonksiyon
         t.carViewSatir.setOnClickListener(){
             // Anasayfa'dan KisiDetayFragment'e gecis yapilacak
+//            val gecis = AnasayfaFragmentDirections.kisiDetayGecis(kisi)
+//            Navigation.gecisYap(it,gecis)
             val gecis = AnasayfaFragmentDirections.kisiDetayGecis(kisi)
-            Navigation.gecisYap(it,gecis)
-            //val gecis = AnasayfaFragmentDirections.kisiDetayGecis(kisi)
-            //Navigation.findNavController(it).navigate(gecis)
+            Navigation.findNavController(it).navigate(gecis)
         }
 
         
@@ -54,7 +54,7 @@ class KisilerAdapter(var mContext : Context , var kisilerListesi: List<Kisiler> 
         t.imageViewSil.setOnClickListener(){
             Snackbar.make(it, "${kisi.kisi_ad} silinsin mi?", Snackbar.LENGTH_LONG)
                 .setAction("Evet"){
-                    viewModel.Sil(kisi.kisi_id) // ViewModel'den Sil fonksiyonunu cagiriyoruz
+                    viewModel.Sil(kisi.kisi_id!!) // ViewModel'den Sil fonksiyonunu cagiriyoruz
                 }.show()
         }
     }

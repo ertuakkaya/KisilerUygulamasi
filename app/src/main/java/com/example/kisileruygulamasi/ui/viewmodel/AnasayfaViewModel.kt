@@ -24,23 +24,19 @@ class AnasayfaViewModel @Inject constructor(var kisilerRepo : KisilerRepository)
 
 
     // Repository sınıfındaki Sil fonksiyonunu çağırıyoruz.
-    fun Sil(kisi_id : Int){
-        CoroutineScope(Dispatchers.Main).launch {
-            kisilerRepo.Sil(kisi_id)
-            kisileriYukle() // Silme işleminden sonra tekrar listeyi yüklüyoruz.
-        }
+    fun Sil(kisi_id : String){
+        kisilerRepo.Sil(kisi_id)
+        //kisileriYukle() // Silme işleminden sonra tekrar listeyi yüklüyoruz.
     }
 
+
+    // Artık firebase ile MutableLiveData aldığımız için .value kullanmıyoruz.
     fun kisileriYukle(){
-        CoroutineScope(Dispatchers.Main).launch {
-            // VİewModel'den veri göndermek için MutableLiveData'nın .value özelliğini kullanıyoruz.
-            kisilerListesi.value = kisilerRepo.kisileriYukle() // gelen veriyi kisilerListesi'ne atıyoruz.
-        }
+        // VİewModel'den veri göndermek için MutableLiveData'nın .value özelliğini kullanıyoruz.
+        kisilerListesi= kisilerRepo.kisileriYukle() // gelen veriyi kisilerListesi'ne atıyoruz.
     }
     fun Ara(aramaKelimesi : String){
-        CoroutineScope(Dispatchers.Main).launch {
-            kisilerListesi.value = kisilerRepo.Ara(aramaKelimesi)
-        }
+        kisilerListesi= kisilerRepo.Ara(aramaKelimesi)
     }
 
 

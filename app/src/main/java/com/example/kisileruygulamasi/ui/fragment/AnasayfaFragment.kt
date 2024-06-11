@@ -39,11 +39,7 @@ class AnasayfaFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        // View Binding
-        //binding = FragmentAnasayfaBinding.inflate(inflater, container, false)
 
-        //binding.rv.layoutManager = LinearLayoutManager(requireContext())
-        //binding.rv.layoutManager = StaggeredGridLayoutManager(1, LinearLayout.VERTICAL)
 
         // Data Binding
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_anasayfa, container, false)
@@ -61,14 +57,6 @@ class AnasayfaFragment : Fragment() {
             binding.kisilerAdapter = kisilerAdapter // Recyclerview goruntuler
         }
 
-        /*
-        binding.fab.setOnClickListener {
-
-            Navigation.findNavController(it).navigate(R.id.kisiKayitGecis)
-
-        }
-        */
-
         binding.searchView.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String): Boolean {
                 viewModel.Ara(newText)
@@ -85,11 +73,11 @@ class AnasayfaFragment : Fragment() {
         return binding.root
     }
 
-    // Anasayfa acildiginda calisir
-    override fun onResume() {
-        super.onResume()
-        viewModel.kisileriYukle() // Ana sayfa acildiginda kisileri yukle
-    }
+//    // Anasayfa acildiginda calisir
+//    override fun onResume() {
+//        super.onResume()
+//        viewModel.kisileriYukle() // Ana sayfa acildiginda kisileri yukle
+//    }
 
 
     // it icin bir view nesnesi alir ve bu nesne uzerinden Navigation islemi yapar

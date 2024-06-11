@@ -2,6 +2,9 @@ package com.example.kisileruygulamasi.di
 
 import com.example.kisileruygulamasi.data.datasource.KisilerDataSource
 import com.example.kisileruygulamasi.data.repo.KisilerRepository
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.firestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,7 +22,14 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideKisilerDataSource() : KisilerDataSource{
-        return KisilerDataSource()
+    fun provideKisilerDataSource(collectionKisiler : CollectionReference) : KisilerDataSource{
+        return KisilerDataSource(collectionKisiler)
+    }
+
+
+    @Provides
+    @Singleton
+    fun provideKisilerCollectionReference() : CollectionReference{
+        return Firebase.firestore.collection("kisiler")
     }
 }
