@@ -73,13 +73,6 @@ class AnasayfaFragment : Fragment() {
         return binding.root
     }
 
-//    // Anasayfa acildiginda calisir
-//    override fun onResume() {
-//        super.onResume()
-//        viewModel.kisileriYukle() // Ana sayfa acildiginda kisileri yukle
-//    }
-
-
     // it icin bir view nesnesi alir ve bu nesne uzerinden Navigation islemi yapar
     fun fabTikla(it : View){
         Navigation.gecisYap(it, R.id.kisiKayitGecis)
